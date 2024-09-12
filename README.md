@@ -2,4 +2,4 @@
 
 ## Let's Do HIIT
 
-### HEalth and Fitness Tracker
+### Health and Fitness Tracker
