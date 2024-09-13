@@ -1,3 +1,9 @@
+/*
+ * Global Styles
+ *
+ * This stylesheet defines the global font, scrollbar styling, and basic resets for the HTML and body elements.
+ */
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap");
 html {
   scroll-behavior: smooth;
@@ -10,7 +16,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* width */
+/* Custom Scrollbar Styles */
+
 ::-webkit-scrollbar {
   width: 2px;
 }
@@ -18,7 +25,7 @@ body {
 ::-webkit-scrollbar-track {
 }
 
-/* Handle */
+/* Style the scrollbar thumb (handle) */
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 6px;
