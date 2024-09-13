@@ -1,3 +1,10 @@
+/*
+ * Light Theme Configuration
+ *
+ * This file exports an object defining the color scheme for the light theme of the application. The properties define colors for various 
+ * UI elements such as backgrounds, text, buttons, and popups.
+ */
+
 export const lightTheme = {
     bg: "#FFFFFF",
     bgLight: "#FFFFFF",
