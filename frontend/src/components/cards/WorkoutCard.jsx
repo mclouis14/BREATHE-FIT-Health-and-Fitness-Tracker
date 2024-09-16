@@ -1,7 +1,10 @@
+// Import necessary components and icons from external libraries
 import { FitnessCenterRounded, TimelapseRounded } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 
+// Styled component for the Card container
+// The Card has flexible width, padding, and a responsive design with media query for smaller screens.
 const Card = styled.div`
   flex: 1;
   min-width: 250px;
@@ -17,6 +20,9 @@ const Card = styled.div`
     padding: 12px 14px;
   }
 `;
+
+// Styled component for the Category label
+// Displays the workout category with custom styling.
 const Category = styled.div`
   width: fit-content;
   font-size: 14px;
@@ -26,11 +32,17 @@ const Category = styled.div`
   padding: 4px 10px;
   border-radius: 8px;
 `;
+
+// Styled component for the workout name
+// Shows the name of the workout.
 const Name = styled.div`
   font-size: 20px;
   color: ${({ theme }) => theme.text_primary};
   font-weight: 600;
 `;
+
+// Styled component for the set and rep count
+// Displays the number of sets and reps for the workout.
 const Sets = styled.div`
   font-size: 15px;
   color: ${({ theme }) => theme.text_secondary};
@@ -38,10 +50,16 @@ const Sets = styled.div`
   display: flex;
   gap: 6px;
 `;
+
+// Styled component for flexible layout containers
+// Used to arrange elements horizontally with spacing.
 const Flex = styled.div`
   display: flex;
   gap: 16px;
 `;
+
+// Styled component for workout details
+// Displays additional details like weight and duration.
 const Details = styled.div`
   font-size: 15px;
   color: ${({ theme }) => theme.text_primary};
@@ -51,6 +69,20 @@ const Details = styled.div`
   gap: 6px;
 `;
 
+/**
+ * WorkoutCard Component
+ * 
+ * A functional component that renders a workout card with information about
+ * the workout, including category, name, sets/reps, weight, and duration.
+ *
+ * @param {Object} props - Contains workout object with details of the workout.
+ * @param {string} props.workout.category - The category of the workout (e.g., strength, cardio).
+ * @param {string} props.workout.workoutName - The name of the workout.
+ * @param {number} props.workout.sets - The number of sets in the workout.
+ * @param {number} props.workout.reps - The number of reps per set.
+ * @param {number} props.workout.weight - The weight used in the workout (in kg).
+ * @param {number} props.workout.duration - The duration of the workout (in minutes).
+ */
 const WorkoutCard = ({ workout }) => {
   return (
     <Card>
@@ -73,4 +105,5 @@ const WorkoutCard = ({ workout }) => {
   );
 };
 
+// Export the WorkoutCard component for use in other files
 export default WorkoutCard;

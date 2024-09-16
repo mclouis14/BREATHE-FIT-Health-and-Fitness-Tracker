@@ -1,7 +1,9 @@
+// Import necessary libraries and components
 import React from "react";
 import styled from "styled-components";
 import { PieChart } from "@mui/x-charts/PieChart";
 
+// Styled-component 'Card' for styling the container
 const Card = styled.div`
   flex: 1;
   min-width: 280px;
@@ -16,6 +18,7 @@ const Card = styled.div`
     padding: 16px;
   }
 `;
+// Styled-component 'Title' for styling the title of the chart
 const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
@@ -25,6 +28,13 @@ const Title = styled.div`
   }
 `;
 
+/**
+ * CategoryChart Component
+ * @param {Object} data - The data prop passed into the component, containing pie chart data.
+ * 
+ * This component renders a styled card with a title and a PieChart using data passed via props.
+ * The PieChart displays weekly calorie burn information.
+ */
 const CategoryChart = ({ data }) => {
   return (
     <Card>
@@ -47,4 +57,5 @@ const CategoryChart = ({ data }) => {
   );
 };
 
+// Export the CategoryChart component as the default export
 export default CategoryChart;

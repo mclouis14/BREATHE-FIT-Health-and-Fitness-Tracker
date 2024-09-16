@@ -1,7 +1,9 @@
+// Importing necessary libraries
 import React from "react";
 import styled from "styled-components";
 import { BarChart } from "@mui/x-charts/BarChart";
 
+// Styled component to define the card layout and styles
 const Card = styled.div`
   flex: 1;
   min-width: 280px;
@@ -16,6 +18,7 @@ const Card = styled.div`
     padding: 16px;
   }
 `;
+// Styled component for the card title
 const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
@@ -24,7 +27,7 @@ const Title = styled.div`
     font-size: 14px;
   }
 `;
-
+// WeeklyStatCard component to display weekly calorie stats
 const WeeklyStatCard = ({ data }) => {
   return (
     <Card>

@@ -8,6 +8,7 @@ import AddWorkout from "../components/AddWorkout";
 import WorkoutCard from "../components/cards/WorkoutCard";
 import { addWorkout, getDashboardDetails, getWorkouts } from "../api";
 
+// Styled component for the main container
 const Container = styled.div`
   flex: 1;
   height: 100%;
@@ -16,6 +17,8 @@ const Container = styled.div`
   padding: 22px 0px;
   overflow-y: scroll;
 `;
+
+// Wrapper styled component that contains all dashboard elements
 const Wrapper = styled.div`
   flex: 1;
   max-width: 1400px;
@@ -26,12 +29,16 @@ const Wrapper = styled.div`
     gap: 12px;
   }
 `;
+
+// Title styled component for headings
 const Title = styled.div`
   padding: 0px 16px;
   font-size: 22px;
   color: ${({ theme }) => theme.text_primary};
   font-weight: 500;
 `;
+
+// FlexWrap styled component for laying out cards in a flexible grid
 const FlexWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -42,6 +49,8 @@ const FlexWrap = styled.div`
     gap: 12px;
   }
 `;
+
+// Section styled component for grouping similar elements
 const Section = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,6 +61,8 @@ const Section = styled.div`
     gap: 12px;
   }
 `;
+
+// CardWrapper styled component to wrap workout cards
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -62,7 +73,7 @@ const CardWrapper = styled.div`
     gap: 12px;
   }
 `;
-
+// Main Dashboard component
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
@@ -74,6 +85,7 @@ const Dashboard = () => {
 -40 kg
 -10 min`);
 
+// Function to fetch dashboard details
   const dashboardData = async () => {
     setLoading(true);
     const token = localStorage.getItem("breathefit-app-token");
@@ -83,6 +95,7 @@ const Dashboard = () => {
       setLoading(false);
     });
   };
+  // Function to fetch today's workouts
   const getTodaysWorkout = async () => {
     setLoading(true);
     const token = localStorage.getItem("breathefit-app-token");
@@ -93,6 +106,7 @@ const Dashboard = () => {
     });
   };
 
+// Function to add a new workout
   const addNewWorkout = async () => {
     setButtonLoading(true);
     const token = localStorage.getItem("breathefit-app-token");
@@ -106,7 +120,7 @@ const Dashboard = () => {
         alert(err);
       });
   };
-
+// useEffect hook to fetch dashboard data and today's workouts on component mount
   useEffect(() => {
     dashboardData();
     getTodaysWorkout();

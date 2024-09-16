@@ -1,6 +1,8 @@
+// Importing React library for creating components and styled-components for CSS-in-JS styling
 import React from "react";
 import styled from "styled-components";
 
+// Defining a styled component for the card container
 const Card = styled.div`
   flex: 1;
   min-width: 200px;
@@ -11,6 +13,7 @@ const Card = styled.div`
   gap: 6px;
   box-shadow: 1px 6px 20px 0px ${({ theme }) => theme.primary + 15};
 `;
+// Styled component for the left section of the card
 const Left = styled.div`
   flex: 1;
   display: flex;
@@ -20,6 +23,7 @@ const Left = styled.div`
     gap: 6px;
   }
 `;
+// Styled component for the title section
 const Title = styled.div`
   font-weight: 600;
   font-size: 16px;
@@ -28,6 +32,7 @@ const Title = styled.div`
     font-size: 14px;
   }
 `;
+// Styled component for the value section
 const Value = styled.div`
   font-weight: 600;
   font-size: 32px;
@@ -39,10 +44,12 @@ const Value = styled.div`
     font-size: 22px;
   }
 `;
+// Styled component for displaying units (e.g., percentage or currency)
 const Unit = styled.div`
   font-size: 14px;
   margin-bottom: 8px;
 `;
+// Styled component for additional text span, such as a percentage change indicator
 const Span = styled.div`
   margin-bottom: 8px;
   font-weight: 500;
@@ -70,7 +77,7 @@ const Icon = styled.div`
   color: ${color};
   `}
 `;
-
+// Styled component for the description section
 const Desc = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.text_secondary + 90};
@@ -79,7 +86,7 @@ const Desc = styled.div`
     font-size: 12px;
   }
 `;
-
+// CountsCard component definition
 const CountsCard = ({ item, data }) => {
   return (
     <Card>
@@ -99,4 +106,5 @@ const CountsCard = ({ item, data }) => {
   );
 };
 
+// Exporting the CountsCard component as the default export
 export default CountsCard;

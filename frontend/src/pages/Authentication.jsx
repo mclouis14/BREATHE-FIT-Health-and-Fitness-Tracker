@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React, { useState } from "react";
 import styled from "styled-components";
 import LogoImage from "../utils/Images/logo-breathe-IMG_3740.PNG";
@@ -5,6 +6,7 @@ import AuthImage from "../utils/Images/breathe-fit-IMG_3742.JPG";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
+// Styled-component for the main container, setting up layout and background
 const Container = styled.div`
   flex: 1;
   height: 100%;
@@ -14,6 +16,8 @@ const Container = styled.div`
     flex-direction: column;
   }
 `;
+
+// Styled-component for the left side of the layout, displaying the logo and image
 const Left = styled.div`
   flex: 1;
   position: relative;
@@ -21,6 +25,8 @@ const Left = styled.div`
     display: none;
   }
 `;
+
+// Styled-component for the logo image positioning and sizing
 const Logo = styled.img`
   position: absolute;
   width: 70px;
@@ -28,6 +34,8 @@ const Logo = styled.img`
   left: 60px;
   z-index: 10;
 `;
+
+// Styled-component for the authentication background image
 const Image = styled.img`
   position: relative;
   height: 100%;
@@ -35,6 +43,7 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
+// Styled-component for the right side of the layout, containing the form and text
 const Right = styled.div`
   flex: 1;
   position: relative;
@@ -46,6 +55,7 @@ const Right = styled.div`
   justify-content: center;
 `;
 
+// Styled-component for text elements, with responsive font size and color from theme
 const Text = styled.div`
   font-size: 16px;
   text-align: center;
@@ -55,6 +65,8 @@ const Text = styled.div`
     font-size: 14px;
   }
 `;
+
+// Styled-component for the clickable text button, styled with theme's primary color
 const TextButton = styled.span`
   color: ${({ theme }) => theme.primary};
   cursor: pointer;
@@ -62,6 +74,7 @@ const TextButton = styled.span`
   font-weight: 600;
 `;
 
+// Authentication component handles login and sign-up toggle logic
 const Authentication = () => {
   const [login, setLogin] = useState(false);
   return (
@@ -93,4 +106,5 @@ const Authentication = () => {
   );
 };
 
+// Export the Authentication component as the default export
 export default Authentication;

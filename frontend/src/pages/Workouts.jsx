@@ -1,3 +1,4 @@
+// Import necessary modules and components from React, styled-components, MUI, and Redux
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import WorkoutCard from "../components/cards/WorkoutCard";
@@ -8,6 +9,7 @@ import { getWorkouts } from "../api";
 import { CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 
+// Styled components for layout and styling
 const Container = styled.div`
   flex: 1;
   height: 100%;
@@ -72,15 +74,18 @@ const SecTitle = styled.div`
   font-weight: 500;
 `;
 
+// Main functional component to display workout data
 const Workouts = () => {
   const dispatch = useDispatch();
   const [todaysWorkouts, setTodaysWorkouts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState("");
 
+  // Function to fetch today's workout data based on selected date
   const getTodaysWorkout = async () => {
     setLoading(true);
     const token = localStorage.getItem("breathefit-app-token");
+    // Fetch workouts data from API, appending selected date if available
     await getWorkouts(token, date ? `?date=${date}` : "").then((res) => {
       setTodaysWorkouts(res?.data?.todaysWorkouts);
       console.log(res.data);
@@ -88,6 +93,7 @@ const Workouts = () => {
     });
   };
 
+  // useEffect to call getTodaysWorkout whenever the selected date changes
   useEffect(() => {
     getTodaysWorkout();
   }, [date]);
