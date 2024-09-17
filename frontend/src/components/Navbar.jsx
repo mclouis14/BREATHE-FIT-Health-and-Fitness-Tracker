@@ -138,7 +138,7 @@ const Navbar = ({ currentUser }) => {
         </Mobileicon>
         <NavLogo to="/">
           <Logo src={LogoImg} />
-          BreatheFit
+          Breathe Fit
         </NavLogo>
 
         <MobileMenu isOpen={isOpen}>
