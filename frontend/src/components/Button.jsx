@@ -1,7 +1,9 @@
-import { CircularProgress } from "@mui/material";
-import React from "react";
-import styled from "styled-components";
+// Import necessary libraries and components
+import { CircularProgress } from "@mui/material"; // Progress indicator from Material UI
+import React from "react"; // React library for building UI components
+import styled from "styled-components"; // Library for writing CSS in JS
 
+// Define a styled component for the button
 const Button = styled.div`
   border-radius: 10px;
   color: white;
@@ -20,6 +22,7 @@ const Button = styled.div`
     padding: 8px 12px;
   }
 
+  // Conditional styling based on the "type" prop
   ${({ type, theme }) =>
     type === "secondary"
       ? `
@@ -30,12 +33,14 @@ border: 1px solid ${({ theme }) => theme.secondary};
   background: ${theme.primary};
 `}
 
+// Conditional styling for disabled state
   ${({ isDisabled }) =>
     isDisabled &&
     `
   opacity: 0.8;
   cursor: not-allowed;
 
+  // Conditional styling for loading state
   `}
   ${({ isLoading }) =>
     isLoading &&
@@ -43,17 +48,22 @@ border: 1px solid ${({ theme }) => theme.secondary};
     opacity: 0.8;
   cursor: not-allowed;
 `}
+
+// Conditional styling when the "flex" prop is passed
 ${({ flex }) =>
     flex &&
     `
     flex: 1;
 `}
 
+// Conditional styling for small-sized button
 ${({ small }) =>
     small &&
     `
 padding: 10px 28px;
 `}
+
+// Conditional styling for outlined button
   ${({ outlined, theme }) =>
     outlined &&
     `
@@ -61,12 +71,15 @@ background: transparent;
 color: ${theme.primary};
   box-shadow: none;
 `}
+
+// Conditional styling for full-width button
   ${({ full }) =>
     full &&
     `
   width: 100%;`}
 `;
 
+// Button component definition
 const button = ({
   text,
   isLoading,
@@ -104,4 +117,5 @@ const button = ({
   );
 };
 
+// Export the button component for use in other files
 export default button;

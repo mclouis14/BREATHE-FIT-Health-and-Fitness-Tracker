@@ -1,3 +1,4 @@
+// Import necessary modules and components from React, styled-components, and libraries
 import React, { useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../utils/Images/logo-breathe-IMG_3740.PNG";
@@ -7,6 +8,7 @@ import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/reducers/userSlice";
 
+// Styled component for the navbar container
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
   height: 80px;
@@ -20,6 +22,8 @@ const Nav = styled.div`
   color: white;
   border-bottom: 1px solid ${({ theme }) => theme.text_secondary + 20};
 `;
+
+// Styled component for the navbar inner container
 const NavContainer = styled.div`
   width: 100%;
   max-width: 1400px;
@@ -30,6 +34,8 @@ const NavContainer = styled.div`
   justify-content: space-between;
   font-size: 1rem;
 `;
+
+// Styled component for the logo container that links to the home page
 const NavLogo = styled(LinkR)`
   width: 100%;
   display: flex;
@@ -41,9 +47,13 @@ const NavLogo = styled(LinkR)`
   text-decoration: none;
   color: ${({ theme }) => theme.black};
 `;
+
+// Styled component for the logo image
 const Logo = styled.img`
   height: 42px;
 `;
+
+// Styled component for the mobile menu icon, hidden on larger screens
 const Mobileicon = styled.div`
   color: ${({ theme }) => theme.text_primary};
   display: none;
@@ -53,6 +63,7 @@ const Mobileicon = styled.div`
   }
 `;
 
+// Styled component for the desktop navigation items (hidden on mobile)
 const NavItems = styled.ul`
   width: 100%;
   display: flex;
@@ -66,6 +77,8 @@ const NavItems = styled.ul`
     display: none;
   }
 `;
+
+// Styled component for individual navigation links
 const Navlink = styled(NavLink)`
   display: flex;
   align-items: center;
@@ -83,6 +96,7 @@ const Navlink = styled(NavLink)`
   }
 `;
 
+// Styled component for the user section, including avatar and logout button
 const UserContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -93,6 +107,8 @@ const UserContainer = styled.div`
   padding: 0 6px;
   color: ${({ theme }) => theme.primary};
 `;
+
+// Styled component for the logout button
 const TextButton = styled.div`
   text-align: end;
   color: ${({ theme }) => theme.secondary};
@@ -105,6 +121,7 @@ const TextButton = styled.div`
   }
 `;
 
+// Styled component for the mobile dropdown menu
 const MobileMenu = styled.ul`
   display: flex;
   flex-direction: column;
@@ -127,6 +144,7 @@ const MobileMenu = styled.ul`
   z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
 `;
 
+// The main Navbar component
 const Navbar = ({ currentUser }) => {
   const dispatch = useDispatch();
   const [isOpen, setisOpen] = useState(false);
