@@ -1,7 +1,9 @@
+// Import necessary modules and components
 import { CloseRounded, Visibility, VisibilityOff } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// Define a styled container for the input components, using Flexbox for layout
 const Container = styled.div`
   flex: 1;
   display: flex;
@@ -9,6 +11,7 @@ const Container = styled.div`
   gap: 6px;
 `;
 
+// Define a styled label component with dynamic styling based on error, small, and popup props
 const Label = styled.label`
   font-size: 12px;
   color: ${({ theme }) => theme.text_primary};
@@ -30,6 +33,7 @@ const Label = styled.label`
   `}
 `;
 
+// Define a styled input container with dynamic styles for different input types
 const OutlinedInput = styled.div`
   border-radius: 8px;
   border: 0.5px solid ${({ theme }) => theme.text_secondary};
@@ -74,6 +78,7 @@ const OutlinedInput = styled.div`
   `}
 `;
 
+// Define the actual input field with dynamic styling
 const Input = styled.input`
   width: 100%;
   font-size: 14px;
@@ -97,23 +102,23 @@ const Input = styled.input`
   `} ${({ theme }) => theme.popup_text_secondary};
 `;
 
+// Define a styled error message with dynamic styling
 const Error = styled.p`
   font-size: 12px;
   margin: 0px 4px;
   color: ${({ theme }) => theme.red};
   ${({ small }) =>
-    small &&
-    `
-    font-size: 8px;
-  `}
+    small &&`font-size: 8px;`}
 `;
 
+// Define a wrapper for displaying chips (tags) inside the input field
 const ChipWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 `;
 
+// Define a styled component for each individual chip (tag)
 const Chip = styled.div`
   padding: 5px 10px;
   border-radius: 8px;
@@ -127,6 +132,26 @@ const Chip = styled.div`
   transition: all 0.3s ease;
 `;
 
+/**
+ * TextInput component renders a customizable text input field
+ * @param {Object} props - The props for the component
+ * @param {string} props.label - Label for the input field
+ * @param {string} props.placeholder - Placeholder text for the input field
+ * @param {string} props.name - Name attribute for the input field
+ * @param {string} props.value - Current value of the input field
+ * @param {string} props.error - Error message for the input field
+ * @param {function} props.handelChange - Function to handle changes in input value
+ * @param {boolean} props.textArea - Whether the input is a textarea
+ * @param {number} props.rows - Number of rows for textarea (if applicable)
+ * @param {number} props.columns - Number of columns for textarea (if applicable)
+ * @param {boolean} props.chipableInput - Whether the input supports chips
+ * @param {Array} props.chipableArray - Array of chips (tags) to display
+ * @param {function} props.removeChip - Function to remove a chip from the input
+ * @param {string} props.height - Height of the input field (for chipable inputs)
+ * @param {boolean} props.small - Whether the input should be rendered small
+ * @param {boolean} props.popup - Whether the input is rendered in a popup
+ * @param {boolean} props.password - Whether the input is for a password
+ */
 const TextInput = ({
   label,
   placeholder,
