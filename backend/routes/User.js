@@ -1,7 +1,7 @@
 // Import the Express library to create a router and handle HTTP requests
 import express from "express";
-import { UserRegister } from "../controllers/User.js";
-import { UserLogin } from "../controllers/User.js";
+import { UserLogin, UserRegister, getUserDashboard } from "../controllers/User.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 
 const router = express.Router();
