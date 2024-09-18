@@ -1,32 +1,25 @@
-import bcrypt from "bcrypt"; // For hashing and verifying passwords
-import jwt from "jsonwebtoken"; // For generating JWT tokens
-import dotenv from "dotenv"; // To load environment variables from a .env file
-import { createError } from "../error.js"; // Custom error handling utility
-import User from "../models/User.js"; // User model for database operations
-import Workout from "../models/Workout.js"; 
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import { createError } from "../error.js";
+import User from "../models/User.js";
+import Workout from "../models/Workout.js";
 
-dotenv.config(); // Load environment variables
+dotenv.config();
 
-// User registration controller
 export const UserRegister = async (req, res, next) => {
     try {
         const { email, password, name, img } = req.body;
 
-<<<<<<< HEAD
         // Check if email is in use
-=======
-        // Check if user already exists
->>>>>>> 7e4207b8083f9e465e1ec54718e6b680feac45b4
         const existingUser = await User.findOne({ email }).exec();
         if (existingUser) {
             return next(createError(409, "Email already in use"));
         }
 
-        // Hash the password
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        // Create and save new user
         const user = new User({
             name,
             email,
@@ -34,7 +27,6 @@ export const UserRegister = async (req, res, next) => {
             img,
         });
         const createdUser = await user.save();
-        // Generate JWT token
         const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
             expiresIn: "100 years",
         });
@@ -44,16 +36,10 @@ export const UserRegister = async (req, res, next) => {
     }
 };
 
-<<<<<<< HEAD
-=======
-
-// User login controller
->>>>>>> 7e4207b8083f9e465e1ec54718e6b680feac45b4
 export const UserLogin = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
-<<<<<<< HEAD
         const user = await User.findOne({ email: email });
         // Check if user exists
         if (!user) {
@@ -61,22 +47,11 @@ export const UserLogin = async (req, res, next) => {
         }
         console.log(user);
         // Check if password is correct
-=======
-
-        // Check if user exists
-        const user = await User.findOne({ email }).exec();
-        if (!user) {
-            return next(createError(404, "User not found"));
-        }
-
-        // Verify password
->>>>>>> 7e4207b8083f9e465e1ec54718e6b680feac45b4
         const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
         if (!isPasswordCorrect) {
             return next(createError(403, "Incorrect Password"));
         }
 
-        // Generate JWT token
         const token = jwt.sign({ id: user._id }, process.env.JWT, {
             expiresIn: "100 years",
         });
@@ -87,21 +62,13 @@ export const UserLogin = async (req, res, next) => {
     }
 };
 
-<<<<<<< HEAD
 export const getUserDashboard = async (req, res, next) => {
-=======
-// Fetch user dashboard (example controller)
-const getUserDashboard = async (req, res, next) => {
->>>>>>> 7e4207b8083f9e465e1ec54718e6b680feac45b4
     try{
         const userId = req.user?.id;
-
-        // Retrieve user by ID
         const user = await User.findById(userId);
         if (!user) {
             return next(createError(404, "User not found"));
         }
-<<<<<<< HEAD
 
         const currentDateFormatted = new Date();
         const startToday = new Date(
@@ -212,10 +179,6 @@ const getUserDashboard = async (req, res, next) => {
             },
             pieChartData: pieChartData,
         });
-=======
-        
-        // (Additional logic for the dashboard can be added here)
->>>>>>> 7e4207b8083f9e465e1ec54718e6b680feac45b4
     } catch (err) {
         next(err);
     }
