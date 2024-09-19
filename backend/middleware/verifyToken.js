@@ -1,16 +1,7 @@
-// Import necessary libraries
 import jwt from "jsonwebtoken"; // Library to handle JWT authentication
 import { createError } from "../error.js"; // Function to handle custom error creation
 
-/**
- * Middleware function to verify the JWT token from request headers.
- * If the token is missing or invalid, it returns a 401 Unauthorized error.
- * If valid, the decoded user data is attached to the request object and the request proceeds.
- *
- * @param {Object} req - Express request object
- * @param {Object} res - Express response object
- * @param {Function} next - Express next middleware function
- */
+// Middleware function to verify the JWT token from request headers.
 export const verifyToken = async (req, res, next) => {
     try {
         // Check if Authorization header exists
@@ -28,8 +19,7 @@ export const verifyToken = async (req, res, next) => {
         const decode = jwt.verify(token, process.env.JWT);
         // Attach decoded user data to request object
         req.user = decode;
-        // Continue to the next middleware
-        return next();
+        return next(); // Pass to the next middleware
     } catch (err) {
         // Handle any error during the process
         next(err);

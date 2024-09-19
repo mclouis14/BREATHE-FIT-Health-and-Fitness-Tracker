@@ -11,7 +11,7 @@ export const UserRegister = async (req, res, next) => {
     try {
         const { email, password, name, img } = req.body;
 
-        // Check if email is in use
+        // Check if a user with the given email already exists
         const existingUser = await User.findOne({ email }).exec();
         if (existingUser) {
             return next(createError(409, "Email already in use"));
@@ -32,7 +32,7 @@ export const UserRegister = async (req, res, next) => {
         });
         return res.status(200).json({ token, user });
     } catch (err) {
-        next(err);
+        next(err); // Pass any errors to the next middleware
     }
 };
 
@@ -180,6 +180,127 @@ export const getUserDashboard = async (req, res, next) => {
             pieChartData: pieChartData,
         });
     } catch (err) {
-        next(err);
+      next(err);
     }
+};
+
+export const getWorkoutsByDate = async (req, res, next) => {
+    try {
+        const userId = req.user?.id;
+        const user = await User.findById(userId);
+        let date = req.query.date ? new Date(req.query.date) : new Date();
+        if (!user) {
+            return next(createError(404, "User not found"));
+        }
+        const startOfDay = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+        );
+        const endOfDay = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate() + 1
+        );
+
+        const todaysWorkouts = await Workout.find({
+            userId: userId,
+            date: { $gte: startOfDay, $lt: endOfDay },
+        });
+        const totalCaloriesBurned = todaysWorkouts.reduce(
+            (total, workout) => total + workout.caloriesBurnt,
+            0
+        );
+        
+        return res.status(200).json({ todaysWorkouts, totalCaloriesBurned });
+    } catch (err) {
+      next(err);
+    }
+};
+
+export const addWorkout = async (req, res, next) => {
+    try {
+        const userId = req.User?.id;
+        const { workoutString } = req.body;
+        if (!workoutString) {
+            return next(createError(400, "Workout string is missing"));
+        }
+        // Split the workout string into individual workouts
+        const eachworkout = workoutString.spilt(",").map((line) => line.trim());
+        // Check if any workout starts with category marker "#"
+        const categories = eachworkout.filter((line) => line.startsWith("#"));
+        if (categories.length === 0) {
+            return next(createError(400, "No categories found in workout strings"))
+        }
+
+        // Initialize an array to store parsed workout details
+        const parsedWorkouts = [];
+        let currentCategory = "";
+        let count = 0;
+
+        // Loop through each lines to parse workout details
+        await eachworkout.forEach((line) => {
+            count++;
+            if (line.startsWith("#")) {
+                const parts = line?.split("\n").map((part) => part.trim());
+                console.log(parts);
+                if (parts.length < 3) {
+                    return next(createError(400, `Workout string is missing for ${count}th workout`));
+                }
+
+                // Update current category from the first part
+                currentCategory = parts[0].substring(1).trim();
+                // Parse the workout details from the parts array
+                const workoutDetails = parsedWorkoutLine(parts);
+                if (workoutDetails == null) {
+                    return next(createError(400, "Enter in correct format"));
+                }
+
+                if (workoutDetails) {
+                    // Add category to workout details
+                    workoutDetails.category = currentCategory;
+                    parsedWorkouts.push(workoutDetails);
+                }
+            } else {
+                return next(createError(400, `Workout string is missing for ${count}th workout`));
+            }
+        });
+
+        // Calculate calories burned for each workout
+        await parsedWorkouts.forEach(async (workout) => {
+            workout.caloriesBurnt = parseFloat(calculateCaloriesBurned(workout));
+            await Workout.create({ ...workout, user: userId });
+        });
+
+        return res.status(201).json({
+            message: "Workouts added successfully",
+            workouts: parsedWorkouts,
+        });
+    } catch (err) {
+      next(err);
+    }
+};
+
+// Function to parse workout details from an array of strings
+const parsedWorkoutLine = (parts) => {
+    const details = {};
+    console.log(parts);
+    if (parts.length >= 3) {
+        details.workoutName = parts[1].substring(1).trim();
+        details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
+        details.reps = parseInt(parts[2].split("sets")[1].split("reps")[0].substring(1).trim());
+        details.weight = parseFloat(parts[3].split("kg")[0].substring(1).trim());
+        details.duration = parseFloat(parts[4].split("min")[0].substring(1).trim());
+        console.log(details);
+        return details;
+    }
+    return null;
+};
+
+// Function to calculate calories burned based on workout details
+const calculateCaloriesBurned = (workoutDetails) => {
+    const weightInKg = parseInt(workoutDetails.weight);
+    const durationInMinutes = parseInt(workoutDetails.duration);
+    const caloriesBurnedPerMinute = 3; // Sample value, actual calculation may vary
+    return durationInMinutes * caloriesBurnedPerMinute * weightInKg;
 };
