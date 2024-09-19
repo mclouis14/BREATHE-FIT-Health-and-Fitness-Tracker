@@ -20,16 +20,8 @@ app.use(express.json({ limit: "50mb" }));
 // Middleware to parse URL-encoded payloads
 app.use(express.urlencoded({ extended: true }));
 
-// Define the root route ("/") of the API
-app.get("/", async(req, res) => {
-    res.status(200).json({
-        message: "Hello fitness enthusiasts from Breathe Fit", // Respond with a greeting message
-    });
-});
-
 // Route to handle user-related operations, mounted at "/api/user"
-app.use("/api/user", UserRoutes);
-
+app.use("/api/user/", UserRoutes);
 // Error handling middleware for handling unexpected errors
 app.use((err, req, res, next) => {
     const status = err.status || 500;
@@ -41,14 +33,22 @@ app.use((err, req, res, next) => {
     });
 });
 
+// Define the root route ("/") of the API
+app.get("/", async(req, res) => {
+    res.status(200).json({
+        message: "Hello fitness enthusiasts from Breathe Fit", // Respond with a greeting message
+    });
+});
+
 // Function to connect to the MongoDB database using Mongoose
 const connectDB = () => {
     mongoose.set("strictQuery", true);
     mongoose
       .connect(process.env.MONGOBD_URL)
-      .then((res) => console.log("connected to MongoDB"))
+      .then(() => console.log("Connected to MongoDB"))
       .catch((err) => {
-        console.log(err);
+        console.error("Failed to connect with MongoDB");
+        console.error(err);
       });
 };
 
@@ -57,8 +57,8 @@ const startServer = async () => {
     try {
         connectDB();
         app.listen(8080, () => console.log("Server running at port 8080"));
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.log(error);
     }
 };
 

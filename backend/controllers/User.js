@@ -83,12 +83,12 @@ export const getUserDashboard = async (req, res, next) => {
         );
 
         // Calculate the total calories burned
-        const totalCaloriesBurned = await Workout.aggregate([
+        const totalCaloriesBurnt = await Workout.aggregate([
             { $match: { user: user._id, date: { $gte: startToday, $lt: endToday } } },
             {
                 $group: {
                     _id: null,
-                    totalCaloriesBurned: { $sum: "$caloriesBurnt" },
+                    totalCaloriesBurnt: { $sum: "$caloriesBurned" },
                 },
             },
         ]);
@@ -100,9 +100,9 @@ export const getUserDashboard = async (req, res, next) => {
         });
 
         // Calculate the average calories burned per workout
-        const avgCaloriesBurnedPerWorkout = 
-            totalCaloriesBurned.length > 0
-                ? totalCaloriesBurned[0].totalCaloriesBurned / totalWorkouts
+        const avgCaloriesBurntPerWorkout = 
+            totalCaloriesBurnt.length > 0
+                ? totalCaloriesBurnt[0].totalCaloriesBurnt / totalWorkouts
                 : 0;
 
         // Fetch the category of workouts
@@ -112,7 +112,7 @@ export const getUserDashboard = async (req, res, next) => {
                 {
                     $group: {
                         _id: "$category",
-                        totalCaloriesBurned: { $sum: "$caloriesBurnt" },
+                        totalCaloriesBurnt: { $sum: "$caloriesBurned" },
                     },
                 },
         ]);
@@ -120,12 +120,12 @@ export const getUserDashboard = async (req, res, next) => {
         // Format category data for pie chart
         const pieChartData = categoryCalories.map((category, index) => ({
             id: index,
-            value: category.totalCaloriesBurned,
+            value: category.totalCaloriesBurnt,
             label: category._id,
         }));
 
         const weeks = [];
-        const caloriesBurned = [];
+        const caloriesBurnt = [];
         for (let i = 6; i >= 0; i--) {
             const date = new Date(
                 currentDateFormatted.getTime() - i * 24 * 60 * 60 * 1000
@@ -153,7 +153,7 @@ export const getUserDashboard = async (req, res, next) => {
                 {
                     $group: {
                         _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
-                        totalCaloriesBurned: { $sum: "$caloriesBurnt" },
+                        totalCaloriesBurnt: { $sum: "$caloriesBurned" },
                     },
                 },
                 {
@@ -161,21 +161,21 @@ export const getUserDashboard = async (req, res, next) => {
                 },
             ]);
 
-            caloriesBurned.push(
-                weekData[0]?.totalCaloriesBurned ? weekData[0]?.totalCaloriesBurned : 0
+            caloriesBurnt.push(
+                weekData[0]?.totalCaloriesBurnt ? weekData[0]?.totalCaloriesBurnt : 0
             );
         }
 
         return res.status(200).json ({
-            totalCaloriesBurned:
-                totalCaloriesBurned.length > 0
-                    ? totalCaloriesBurned[0].totalCaloriesBurned
+            totalCaloriesBurnt:
+                totalCaloriesBurnt.length > 0
+                    ? totalCaloriesBurnt[0].totalCaloriesBurnt
                     : 0,
             totalWorkouts: totalWorkouts,
-            avgCaloriesBurnedPerWorkout: avgCaloriesBurnedPerWorkout,
-            totalWeekCaloriesBurned: {
+            avgCaloriesBurntPerWorkout: avgCaloriesBurntPerWorkout,
+            totalWeekCaloriesBurnt: {
                 weeks: weeks,
-                caloriesBurnt: caloriesBurned,
+                caloriesBurned: caloriesBurnt,
             },
             pieChartData: pieChartData,
         });
@@ -207,12 +207,12 @@ export const getWorkoutsByDate = async (req, res, next) => {
             userId: userId,
             date: { $gte: startOfDay, $lt: endOfDay },
         });
-        const totalCaloriesBurned = todaysWorkouts.reduce(
-            (total, workout) => total + workout.caloriesBurnt,
+        const totalCaloriesBurnt = todaysWorkouts.reduce(
+            (total, workout) => total + workout.caloriesBurned,
             0
         );
         
-        return res.status(200).json({ todaysWorkouts, totalCaloriesBurned });
+        return res.status(200).json({ todaysWorkouts, totalCaloriesBurnt });
     } catch (err) {
       next(err);
     }
@@ -268,7 +268,7 @@ export const addWorkout = async (req, res, next) => {
 
         // Calculate calories burned for each workout
         await parsedWorkouts.forEach(async (workout) => {
-            workout.caloriesBurnt = parseFloat(calculateCaloriesBurned(workout));
+            workout.caloriesBurned = parseFloat(calculateCaloriesBurnt(workout));
             await Workout.create({ ...workout, user: userId });
         });
 
@@ -298,9 +298,9 @@ const parsedWorkoutLine = (parts) => {
 };
 
 // Function to calculate calories burned based on workout details
-const calculateCaloriesBurned = (workoutDetails) => {
+const calculateCaloriesBurnt = (workoutDetails) => {
     const weightInKg = parseInt(workoutDetails.weight);
     const durationInMinutes = parseInt(workoutDetails.duration);
-    const caloriesBurnedPerMinute = 3; // Sample value, actual calculation may vary
-    return durationInMinutes * caloriesBurnedPerMinute * weightInKg;
+    const caloriesBurntPerMinute = 3; // Sample value, actual calculation may vary
+    return durationInMinutes * caloriesBurntPerMinute * weightInKg;
 };
