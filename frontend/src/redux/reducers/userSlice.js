@@ -1,8 +1,4 @@
-/*
- * User Slice (Redux Toolkit)
- *
- * This file defines the user slice of the Redux state, handling authentication actions like login and logout.
- */
+// This file defines the user slice of the Redux state, handling authentication actions like login and logout.
 
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -19,12 +15,12 @@ export const userSlice = createSlice({
     // Action for successful login, setting the current user and token
     loginSuccess: (state, action) => {
       state.currentUser = action.payload.user;
-      localStorage.setItem("fittrack-app-token", action.payload.token);
+      localStorage.setItem("breathefit-app-token", action.payload.token);
     },
     // Action for logout, clearing the current user and removing the token
     logout: (state) => {
       state.currentUser = null;
-      localStorage.removeItem("fitttrack-app-token");
+      localStorage.removeItem("breathefit-app-token");
     },
   },
 });
