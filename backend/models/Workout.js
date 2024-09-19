@@ -1,4 +1,3 @@
-// Import the Mongoose library for MongoDB interactions
 import mongoose from "mongoose";
 
 // Define the schema for Workout documents

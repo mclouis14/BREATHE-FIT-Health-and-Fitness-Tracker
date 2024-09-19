@@ -1,4 +1,3 @@
-// Import required modules and packages
 import express from "express";             // Web framework for building APIs
 import * as dotenv from "dotenv";          // Load environment variables from .env file
 import cors from "cors";                   // Enable Cross-Origin Resource Sharing (CORS)
@@ -36,7 +35,7 @@ app.use((err, req, res, next) => {
 // Define the root route ("/") of the API
 app.get("/", async(req, res) => {
     res.status(200).json({
-        message: "Hello fitness enthusiasts from Breathe Fit", // Respond with a greeting message
+        message: "Hello fitness enthusiasts from BREATHE FIT", // Respond with a greeting message
     });
 });
 

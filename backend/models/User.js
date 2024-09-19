@@ -1,4 +1,3 @@
-// Import the mongoose library
 import mongoose from "mongoose";
 
 // Define the schema for the "User" model

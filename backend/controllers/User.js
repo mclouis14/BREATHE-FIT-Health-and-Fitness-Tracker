@@ -31,8 +31,8 @@ export const UserRegister = async (req, res, next) => {
             expiresIn: "5 minutes",
         });
         return res.status(200).json({ token, user });
-    } catch (err) {
-        next(err); // Pass any errors to the next middleware
+    } catch (error) {
+        next(error); // Pass any errors to the next middleware
     }
 };
 
@@ -57,8 +57,8 @@ export const UserLogin = async (req, res, next) => {
         });
 
         return res.status(200).json({ token, user });
-    } catch (err) {
-        return next(err);
+    } catch (error) {
+        return next(error);
     }
 };
 
