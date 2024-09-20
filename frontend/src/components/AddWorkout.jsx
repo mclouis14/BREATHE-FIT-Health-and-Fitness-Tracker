@@ -51,24 +51,26 @@ const Title = styled.div`
  * - A text input for entering workout details
  * - A button to trigger the submission of the workout
  */
-const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading }) => {
+const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading, placeholder }) => {
+  // Local state for managing the workout input
+  const [localWorkout, setLocalWorkout] = useState(workout);
+
+  // Handle change function to update local state
+  const handleChange = (e) => {
+    setLocalWorkout(e.target.value);
+    setWorkout(e.target.value); // Update parent state as well
+  };
   return (
     <Card>
       <Title>Add New Workout</Title>
       <TextInput
         label="Workout"
         textArea
-        rows={10}
-        placeholder={`Enter in this format:
-
-#Category
--Workout Name
--Reps
--Sets
--Weight
--Duration`}
-        value={workout}
-        handelChange={(e) => setWorkout(e.target.value)}
+        rows="10"
+        placeholder={placeholder}
+        value={localWorkout}
+        handleChange={handleChange}
+        cols="30"
       />
       <Button
         text="Add Workout"

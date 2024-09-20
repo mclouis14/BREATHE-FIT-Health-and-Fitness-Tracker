@@ -140,7 +140,7 @@ const Chip = styled.div`
  * @param {string} props.name - Name attribute for the input field
  * @param {string} props.value - Current value of the input field
  * @param {string} props.error - Error message for the input field
- * @param {function} props.handelChange - Function to handle changes in input value
+ * @param {function} props.handleChange - Function to handle changes in input value
  * @param {boolean} props.textArea - Whether the input is a textarea
  * @param {number} props.rows - Number of rows for textarea (if applicable)
  * @param {number} props.columns - Number of columns for textarea (if applicable)
@@ -158,7 +158,7 @@ const TextInput = ({
   name,
   value,
   error,
-  handelChange,
+  handleChange,
   textArea,
   rows,
   columns,
@@ -198,7 +198,7 @@ const TextInput = ({
               placeholder={placeholder}
               name={name}
               value={value}
-              onChange={(e) => handelChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </ChipWrapper>
         ) : (
@@ -212,7 +212,7 @@ const TextInput = ({
               columns={columns}
               placeholder={placeholder}
               value={value}
-              onChange={(e) => handelChange(e)}
+              onChange={(e) => handleChange(e)}
               type={password && !showPassword ? "password" : "text"}
             />
             {password && (

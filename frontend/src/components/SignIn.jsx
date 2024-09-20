@@ -48,7 +48,7 @@ const SignIn = () => {
   };
 
   // Async function to handle the sign-in process.
-  const handelSignIn = async () => {
+  const handleSignIn = async () => {
     setLoading(true);
     setButtonDisabled(true);
 
@@ -73,7 +73,7 @@ const SignIn = () => {
   return (
     <Container>
       <div>
-        <Title>Welcome to Breathe Fit 👋</Title>
+        <Title>Welcome to BREATHE FIT 👋</Title>
         <Span>Please login with your details here</Span>
       </div>
       <div
@@ -87,18 +87,18 @@ const SignIn = () => {
           label="Email Address"
           placeholder="Enter your email address"
           value={email}
-          handelChange={(e) => setEmail(e.target.value)}
+          handleChange={(e) => setEmail(e.target.value)}
         />
         <TextInput
           label="Password"
           placeholder="Enter your password"
           password
           value={password}
-          handelChange={(e) => setPassword(e.target.value)}
+          handleChange={(e) => setPassword(e.target.value)}
         />
         <Button
           text="SignIn"
-          onClick={handelSignIn}
+          onClick={handleSignIn}
           isLoading={loading}
           isDisabled={buttonDisabled}
         />
