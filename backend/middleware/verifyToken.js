@@ -22,6 +22,6 @@ export const verifyToken = async (req, res, next) => {
         return next(); // Pass to the next middleware
     } catch (err) {
         // Handle any error during the process
-        next(err);
+      next(err);
     }
 };

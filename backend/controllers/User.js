@@ -32,7 +32,7 @@ export const UserRegister = async (req, res, next) => {
         });
         return res.status(200).json({ token, user });
     } catch (error) {
-        next(error); // Pass any errors to the next middleware
+      return next(error); // Pass any errors to the next middleware
     }
 };
 
@@ -58,7 +58,7 @@ export const UserLogin = async (req, res, next) => {
 
         return res.status(200).json({ token, user });
     } catch (error) {
-        return next(error);
+      return next(error);
     }
 };
 
