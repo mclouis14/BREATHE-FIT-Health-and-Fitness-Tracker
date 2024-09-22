@@ -5,12 +5,12 @@ import { createError } from "../error.js"; // Function to handle custom error cr
 export const verifyToken = async (req, res, next) => {
     try {
         // Check if Authorization header exists
-        if (!req.heders.authorization) {
+        if (!req.headers.authorization) {
             return next(createError(401, "User not authenticated, try again!"));
         }
 
         // Extract token from Authorization header
-        const token = req.heders.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1];
 
         // If token is missing, return an error
         if (!token) return next(createError(401, "User not authenticated, try again!"));

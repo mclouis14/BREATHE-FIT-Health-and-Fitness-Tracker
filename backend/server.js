@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user/", UserRoutes);
 // Error handling middleware for handling unexpected errors
 app.use((err, req, res, next) => {
+    console.error(err.stack);
     const status = err.status || 500;
     const message = err.message || "Something went wrong";
     return res.status(status).json({
