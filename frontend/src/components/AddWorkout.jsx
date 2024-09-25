@@ -51,7 +51,7 @@ const Title = styled.div`
  * - A text input for entering workout details
  * - A button to trigger the submission of the workout
  */
-const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading, placeholder }) => {
+const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading }) => {
   // Local state for managing the workout input
   const [localWorkout, setLocalWorkout] = useState(workout);
 
@@ -67,9 +67,16 @@ const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading, placeho
         label="Workout"
         textArea
         rows="10"
-        placeholder={placeholder}
-        value={localWorkout}
-        handleChange={handleChange}
+        placeholder={`Enter in this format:
+
+#Category
+-Workout Name
+-Sets
+-Reps
+-Weight
+-Duration`}
+        value={workout}
+        handleChange={(e) => setWorkout(e.target.value)}
         cols="30"
       />
       <Button

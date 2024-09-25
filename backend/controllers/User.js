@@ -31,8 +31,8 @@ export const UserRegister = async (req, res, next) => {
             expiresIn: "99 years",
         });
         return res.status(200).json({ token, user });
-    } catch (error) {
-      return next(error); // Pass any errors to the next middleware
+      } catch (error) {
+        return next(error); // Pass any errors to the next middleware
     }
 };
 
@@ -57,8 +57,8 @@ export const UserLogin = async (req, res, next) => {
         });
 
         return res.status(200).json({ token, user });
-    } catch (error) {
-      return next(error);
+      } catch (error) {
+        return next(error);
     }
 };
 
