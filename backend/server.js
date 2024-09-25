@@ -43,7 +43,7 @@ app.get("/", async(req, res) => {
 const connectDB = () => {
     mongoose.set("strictQuery", true);
     mongoose
-      .connect(process.env.MONGOBD_URL)
+      .connect(process.env.MONGODB_URL)
       .then(() => console.log("Connected to MongoDB"))
       .catch((err) => {
         console.error("Failed to connect with MongoDB");
