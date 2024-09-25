@@ -226,7 +226,7 @@ export const addWorkout = async (req, res, next) => {
             return next(createError(400, "Workout string is missing"));
         }
         // Split the workout string into individual workouts
-        const eachworkout = workoutString.spilt(",").map((line) => line.trim());
+        const eachworkout = workoutString.split(",").map((line) => line.trim());
         // Check if any workout starts with category marker "#"
         const categories = eachworkout.filter((line) => line.startsWith("#"));
         if (categories.length === 0) {
