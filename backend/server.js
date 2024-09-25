@@ -53,7 +53,7 @@ app.get("/", async(req, res) => {
 const connectDB = () => {
     mongoose.set("strictQuery", true);
     mongoose
-      .connect(process.env.MONGODB_SECRET_URL)
+      .connect(process.env.MONGODB_URL)
       .then(() => console.log("Connected to MongoDB"))
       .catch((err) => {
         console.error("Failed to connect with MongoDB");
@@ -67,7 +67,7 @@ const startServer = async () => {
         connectDB();
         app.listen(8080, () => console.log("Server running at port 8080"));
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
 };
 
