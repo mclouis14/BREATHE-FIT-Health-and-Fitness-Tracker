@@ -25,6 +25,19 @@ app.use("/api/user/", UserRoutes);
 app.use((err, req, res, next) => {
     const status = err.status || 500;
     const message = err.message || "Something went wrong";
+
+    // Log the error details for debugging purposes
+    console.error(`Error: ${message}, Status Code: ${status}`);
+    console.error(err.stack);
+
+    // Log request-specific information
+    console.error(`Request URL: ${req.originalUrl}`);
+    console.error(`Request Method: ${req.method}`);
+    console.error(`Request Headers: ${JSON.stringify(req.headers)}`);
+
+    // Pass the error to the next middleware if needed
+    next();
+
     return res.status(status).json({
         success: false,
         status,
@@ -43,7 +56,7 @@ app.get("/", async(req, res) => {
 const connectDB = () => {
     mongoose.set("strictQuery", true);
     mongoose
-      .connect(process.env.MONGOBD_URL)
+      .connect(process.env.MONGODB_URL)
       .then(() => console.log("Connected to MongoDB"))
       .catch((err) => {
         console.error("Failed to connect with MongoDB");
