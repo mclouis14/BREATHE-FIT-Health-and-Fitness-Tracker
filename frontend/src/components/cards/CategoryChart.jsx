@@ -45,7 +45,7 @@ const CategoryChart = ({ data }) => {
             {
               data: data?.pieChartData,
               innerRadius: 30,
-              outerRadius: 120,
+              outerRadius: 100,
               paddingAngle: 5,
               cornerRadius: 5,
             },
