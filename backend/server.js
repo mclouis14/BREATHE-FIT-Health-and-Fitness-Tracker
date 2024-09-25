@@ -6,6 +6,8 @@ import UserRoutes from "./routes/User.js"; // Import user-related API routes
 
 // Load environment variables from the .env file into process.env
 dotenv.config();
+// Log the MongoDB URL to ensure it's loaded correctly
+console.log("MongoDB URL:", process.env.MONGODB-SECRET_URL);
 
 // Initialize an Express application
 const app = express();
@@ -53,7 +55,7 @@ app.get("/", async(req, res) => {
 const connectDB = () => {
     mongoose.set("strictQuery", true);
     mongoose
-      .connect(process.env.MONGODB_URL)
+      .connect(process.env.MONGODB-SECRET_URL)
       .then(() => console.log("Connected to MongoDB"))
       .catch((err) => {
         console.error("Failed to connect with MongoDB");

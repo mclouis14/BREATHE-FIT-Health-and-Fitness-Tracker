@@ -20,8 +20,8 @@ export const verifyToken = async (req, res, next) => {
         // Attach decoded user data to request object
         req.user = decode;
         return next(); // Pass to the next middleware
-    } catch (err) {
+      } catch (err) {
         // Handle any error during the process
-      next(err);
-    }
+        next(err);
+     }
 };
