@@ -225,10 +225,16 @@ export const addWorkout = async (req, res, next) => {
         if (!workoutString) {
             return next(createError(400, "Workout string is missing"));
         }
+        console.log("Received workoutString: workoutString");
+
         // Split the workout string into individual workouts
         const eachworkout = workoutString.split(",").map((line) => line.trim());
+        console.log("Parsed eachworkout:", eachworkout);
+
         // Check if any workout starts with category marker "#"
         const categories = eachworkout.filter((line) => line.startsWith("#"));
+        console.log("Identified categories:", categories);
+
         if (categories.length === 0) {
             return next(createError(400, "No categories found in workout strings"))
         }
@@ -243,7 +249,7 @@ export const addWorkout = async (req, res, next) => {
             count++;
             if (line.startsWith("#")) {
                 const parts = line?.split("\n").map((part) => part.trim());
-                console.log(parts);
+                console.log("parsed parts:", parts);
                 if (parts.length < 3) {
                     return next(createError(400, `Workout string is missing for ${count}th workout`));
                 }
