@@ -288,7 +288,7 @@ const parsedWorkoutLine = (parts) => {
     if (parts.length >= 3) {
         details.workoutName = parts[1].substring(1).trim();
         details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
-        details.reps = parseInt(parts[2].split("sets")[1].split("reps")[0].substring(1).trim());
+        details.reps = parseInt(parts[2].split("reps")[0].substring(1).trim());
         details.weight = parseFloat(parts[3].split("kg")[0].substring(1).trim());
         details.duration = parseFloat(parts[4].split("min")[0].substring(1).trim());
         console.log(details);
