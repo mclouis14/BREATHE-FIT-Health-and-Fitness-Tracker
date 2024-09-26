@@ -250,7 +250,7 @@ export const addWorkout = async (req, res, next) => {
             if (line.startsWith("#")) {
                 const parts = line?.split("\n").map((part) => part.trim());
                 console.log("parsed parts:", parts);
-                if (parts.length < 3) {
+                if (parts.length < 5) {
                     return next(createError(400, `Workout string is missing for ${count}th workout`));
                 }
 
@@ -291,7 +291,7 @@ export const addWorkout = async (req, res, next) => {
 const parsedWorkoutLine = (parts) => {
     const details = {};
     console.log(parts);
-    if (parts.length >= 3) {
+    if (parts.length >= 5) {
         details.workoutName = parts[1].substring(1).trim();
         details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
         details.reps = parseInt(parts[2].split("reps")[0].substring(1).trim());
@@ -307,6 +307,6 @@ const parsedWorkoutLine = (parts) => {
 const calculateCaloriesBurnt = (workoutDetails) => {
     const weightInKg = parseInt(workoutDetails.weight);
     const durationInMinutes = parseInt(workoutDetails.duration);
-    const caloriesBurntPerMinute = 3; // Sample value, actual calculation may vary
+    const caloriesBurntPerMinute = 5; // Sample value, actual calculation may vary
     return durationInMinutes * caloriesBurntPerMinute * weightInKg;
 };
