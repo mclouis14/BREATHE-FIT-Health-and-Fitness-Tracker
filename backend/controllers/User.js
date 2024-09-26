@@ -221,11 +221,15 @@ export const getWorkoutsByDate = async (req, res, next) => {
 export const addWorkout = async (req, res, next) => {
     try {
         const userId = req.User?.id;
+        if (!userId) {
+            return next(createError(400, "User ID is missing"));
+        }
+
         const { workoutString } = req.body;
         if (!workoutString) {
             return next(createError(400, "Workout string is missing"));
         }
-        console.log("Received workoutString: workoutString");
+        console.log("Received workoutString:", workoutString);
 
         // Split the workout string into individual workouts
         const eachworkout = workoutString.split(",").map((line) => line.trim());
@@ -250,6 +254,7 @@ export const addWorkout = async (req, res, next) => {
             if (line.startsWith("#")) {
                 const parts = line?.split("\n").map((part) => part.trim());
                 console.log("parsed parts:", parts);
+                
                 if (parts.length < 5) {
                     return next(createError(400, `Workout string is missing for ${count}th workout`));
                 }
@@ -294,9 +299,9 @@ const parsedWorkoutLine = (parts) => {
     if (parts.length >= 5) {
         details.workoutName = parts[1].substring(1).trim();
         details.sets = parseInt(parts[2].split("sets")[0].substring(1).trim());
-        details.reps = parseInt(parts[2].split("reps")[0].substring(1).trim());
-        details.weight = parseFloat(parts[3].split("kg")[0].substring(1).trim());
-        details.duration = parseFloat(parts[4].split("min")[0].substring(1).trim());
+        details.reps = parseInt(parts[3].split("reps")[0].substring(1).trim());
+        details.weight = parseFloat(parts[4].split("kg")[0].substring(1).trim());
+        details.duration = parseFloat(parts[5].split("min")[0].substring(1).trim());
         console.log(details);
         return details;
     }
