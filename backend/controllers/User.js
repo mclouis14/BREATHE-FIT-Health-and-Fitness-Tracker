@@ -220,7 +220,8 @@ export const getWorkoutsByDate = async (req, res, next) => {
 
 export const addWorkout = async (req, res, next) => {
     try {
-        const userId = req.User?.id;
+        const userId = req.user?.id;
+        console.log("User ID:", userId);
         if (!userId) {
             return next(createError(400, "User ID is missing"));
         }
@@ -254,7 +255,7 @@ export const addWorkout = async (req, res, next) => {
             if (line.startsWith("#")) {
                 const parts = line?.split("\n").map((part) => part.trim());
                 console.log("parsed parts:", parts);
-                
+
                 if (parts.length < 5) {
                     return next(createError(400, `Workout string is missing for ${count}th workout`));
                 }
